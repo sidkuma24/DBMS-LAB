@@ -1,0 +1,180 @@
+ASSIGNMENT-1
+
+1. Create the following tables :
+
+Tablename: EMP 
+Structure :
+EMP_CODE char(5)
+EMP_NAME char(20)
+DEPT_CODE char(5)
+DESIG_CODE char(5)
+SEX char(1)
+ADDRESS char (25)
+CITY char (20)
+STATE char (20)
+PIN char (6)
+BASIC Number
+JN_DT Date
+Primary key is EMP_CODE
+
+Tablename : DESIGNATION
+Structure :
+DESIG_CODE char(5)
+DESIG_DESC char(20)
+Primary key is DESIG_CODE
+
+Tablename : DEPARTMENT
+Structure :
+DEPT_CODE char(5)
+DEPT_NAME char(15)
+Primary key is DEPT_CODE.
+
+2. Display the structure of each table .
+
+3. Insert few rows in each table .
+[While entering data in EMP table, use DESIG_CODE which is existing in DESIGNATION table and
+DEPT_CODE which is existing in DEPARTMENT table . In DESIGNATION table, assign code for
+Manager, Executive, officer, clerk and helper . In DEPARTMENT table, assign code for Personnel,
+Production, Purchase, Finance, Research departments]
+
+4. In EMP table insert few rows without DEPT_CODE and BASIC.
+
+5. Find the rows with unassigned DEPT_CODE.
+
+6. Find the rows with BASIC equal to zero.
+
+7. Find the rows with unassigned Basic [note down the difference between the res ults obtained in Q.6 and Q.7]
+8. Find the average basic of the employees.
+
+9. Replace the BASIC with 0 for the rows with unassigned Basic.
+
+10. Again , find the average Basic. (Note the difference of result obtained in Q.8 & Q.10.)
+
+11.Delete the rows with unassigned DEPT_CODE.
+
+12. Say, Net pay of an employee= Basic+HRA+DA where HRA is 50% of the Basic & DA is 40% of Basic. Show the employee name & Net pay for all employees.
+
+13. Show the EMP_NAME & BASIC in the ascending order of DEPT_CODE. The employee name must appear in uppercase.
+
+14. Find the employees who have joined after 1st January 1990.
+
+15. Find, how many employees have joined in the month of January?
+
+16. Find the maximum & minimum Basic.
+
+17. Find how many Female employees are there?
+
+18. Replace CITY with existing value converted into uppercase for all rows.
+
+19. Find in how many different cities various employees are residing?
+
+20. Display the employee information in the ascending order of DEPT_CODE and with in a Department, eplace CITY with existing value converted into uppercase for all rows.
+------------------------------------------------------------------
+
+ASSIGNMENT - 2
+
+1. From the EMP table show the minimum, maximum and average basic for each department.
+
+2. Find the number of female employees in each department.
+
+3. Find the city wise no. of employees for each department.
+
+4. Show the designation wise no of employees who have joined in the year 2000 in each department. The listing should app ear in the ascending order of no. of employees.
+
+5. Find the department wise total basic of male employees only for the departments for which such total is more than 50,000 and the listing should appear in the descending order of total basic.
+
+6. Show the employee name , Designation description and basic for all employees.
+
+7. Show the employee name, Designation description, Department Name & Basic for all employees.
+
+8. Find the department Codes in which no employee works.
+
+9. Find the department names where at least one employee works.
+
+10. Find the department names where at least 10 employees work.
+
+11. Find the department code in which employee with highest Basic works.
+
+12. Find the Designation description of the employee with highest basic.
+
+13. Find the no. of managers in each department.
+
+14. Find the maximum basic from EMP table without using MAX().
+
+15. Find the minimum basic from EMP table without using MIN().
+
+16. Find the name of the department with highest total basic. Do the same for highest average basic and maximum no. of e mployee.
+
+17. Insert same rows into EMP table with designation code not existing in DESIGNATION table.
+
+18. Delete the rows from EMP table with invalid DESIG_CODE.
+
+19. Find the name of the female employees with basic greater than the average basic of their respective department.
+
+20. Find the number of female managers.
+-------------------------------------------------------------------
+
+ASSSIGNMENT-3
+
+1.In an organization number of departments exist. Each department has a name & unique code. Number of employees work in each department. Each employee has unique employee code. Detailed information like name, address, city, basic, date of join are also stored. In a leave register for each employee leave records are kept showing leave type (CL/EL/ML etc.),from date , to-date. When an employee retires or resigns then all the leave information pertaining to him are also deleted. Basic salary must be within Rs.5000 to Rs.9000. A department can not be deleted if any employee record refers to it. Valid grades are A/B/C. Employee name must be in uppercase only. Default value for joining date is system date. Design & implement the tables with necessary constraints to support the scenario depicted above.
+
+2.Try to violate the constraints that you have implemented in the table & note , what happens. [Try with suitable INSERT/UPDATE/DELETE instruction]
+
+3. a) create a view showing employee code, Name,dcode & Basic for a particular department.
+b)Try to ensure a row into the view with valid department & also with invalid ones.
+c)Find the newly inserted row in the table From which view was created.
+d) Try to increment basic by Rs.100/- 
+e) Check it in the original table.
+f) Delete the view.
+4. a)create a view Showing empcode, Name, Deptname Basic, leave type, From date & to date.
+b)Try to insert a row in the view check what happens?
+c) Try to increment basic by Rs.100.
+d) Delete the view.
+
+5. a)Create a table having empcode , Name, Deptname, & basic From the existing tables alongwith the records of the employee who are in a particular department(say, d1) and with a basic Rs 7000/- 
+b) From the existing table add the employees with the basic salary greater than or equal to 7000/ -
+c) Alter the table to add a net pay column.
+d) Replace net pay with 1.5* Basic.
+e) Try to remove the net net pay column.
+[ It may require no. of steps]
+
+6. Drop all the tables that you have created.
+-------------------------------------------------------------------
+
+ASSIGNMENT - 4
+
+1) Accept an employee code from user . Find the name of the employee from EMP table. If the employee is not existing then indicate it through a suitable message.
+
+2) Write a PL / SQL block to add row in EMP table . If employee code is duplicate/dept code is not present in DEPT tabl e then message is to be shown & row can not be added.
+
+3) From the EMP table find the name of top 5 (according to basic salary) employees
+
+.
+4) Accept a department code from the user . Delete all the employee rows with that department code. Show how many rows h ave been deleted.
+
+5).Consider the following tables:
+Table: ORDERMAST
+Structure:
+ORDER_NO CHAR(5) primary key
+ORDER_DT DATE
+Table: ORDERDETAILS
+Structure:
+ORDER_NO CHAR(5)
+ITEM_NO CHAR(5)
+QTY NUMBER
+ORDER_NO + ITEM_NO is primary key
+Table: DELIVERYMAST
+Structure:
+DELV_NO CHAR(5) primary key
+ORDER_NO CHAR(5)
+DELV_DT DATE
+Table: DELIVERY_DETAILS
+Structure:
+DELV_NO CHAR(5)
+ITEM_NO CHAR(5)
+QTY NUMBER DELV_NO+ITEM_NO is primary key
+
+Write a PL/SQL block which accepts two dates & find the information of the pending delivery for the orders placed between t he two dates supplied by the user. Note, an order can have request for multiple items. Against an order, multiple delivery with partial shipment is possible.
+
+6) Assume a LEAVE table with emp_no,month,no._of_days. For each employee find the effective basic for the current month as per the formula given below: BASIC - (BASIC * no. of leave days in the month)/no. of days in that month
+-------------------------------------------------------------------

@@ -1,0 +1,180 @@
+/*
+ *  Siddharth Kumar <kumar.siddharth450@gmail.com>
+ *   DBMS-Lab Assignment-2
+ */
+
+/*Q1*/
+SELECT DEPT_CODE, MIN(BASIC), MAX(BASIC), AVG(BASIC)
+FROM EMP 
+GROUP BY DEPT_CODE;
+
+/*Q2*/
+SELECT DEPT_CODE, COUNT(*)
+FROM EMP
+WHERE SEX ='F' 
+GROUP BY DEPT_CODE;
+
+/*3*/
+SELECT DEPT_CODE, CITY, COUNT(*)
+FROM EMP
+GROUP BY DEPT_CODE, CITY;
+
+/*4*/
+SELECT DEPT_CODE, COUNT(*)
+FROM EMP
+WHERE JN_DT LIKE '%2000'
+GROUP BY DESIG_CODE 
+ORDER BY COUNT(*);
+
+/*5*/
+SELECT DEPT_CODE, SUM(BASIC)
+FROM EMP
+WHERE SEX = 'M'
+GROUP BY DEPT_CODE
+HAVING SUM(BASIC) > 50000
+ORDER BY SUM(BASIC) DESC;
+
+/*6*/ --using implicit Equijoin
+SELECT EMP_NAME, DESIG_DESC, BASIC
+FROM EMP AS E, DESIGNATION AS D
+WHERE E.DESIG_CODE = D.DESIG_CODE;
+
+/*6*/ --using JOIN, relational algebra function
+SELECT EMP_NAME, DESIG_DESC, BASIC
+FROM (EMP JOIN DESIGNATION ON EMP.DESIG_CODE = DESIGNATION.DESIG_CODE);
+
+/*6*/ --using NATURAL JOIN, due to attributes having identical names
+SELECT EMP_NAME, DESIG_DESC, BASIC
+FROM (EMP NATURAL JOIN DESIGNATION);
+
+/*7*/ --uisng implicit equijoin
+SELECT EMP_NAME, DESIG_DESC, DEPT_NAME, BASIC
+FROM EMP AS E, DESIGNATION AS DEG, DEPARTMENT AS DEP
+WHERE E.DESIG_CODE = DEG.DESIG_CODE AND E.DEPT_CODE = DEP.DEPT_CODE;
+
+/*8*/ --using nested query
+SELECT D.DEPT_CODE
+FROM DEPARTMENT AS D
+WHERE D.DEPT_CODE NOT IN (SELECT DISTICT DEPT_CODE
+                          FROM EMP);
+/*8*/ --without using nested query
+SELECT DEPT_CODE, COUNT(*)
+FROM EMP
+GROUP BY DEPT_CODE
+HAVING COUNT(*) =0;
+
+/*9*/
+SELECT D.DEPT_NAME
+FROM DEPARTMENT AS D
+WHERE D.DEPT_CODE IN (SELECT DISTINCT DEPT_CODE
+                      FROM EMP);
+
+/*9*/ --using natural join relation operation
+SELECT DEPT_NAME
+FROM (EMP NATURAL JOIN DEPARTMENT);
+
+/*9*/ --using implicit equijoin
+SELECT DISTINCT DEPT_NAME
+FROM EMP AS E AND DEPARTMENT AS DEP
+WHERE E.DEPT_CODE = DEP.DEPT_CODE;
+
+/*10*/
+SELECT DEP.DEPT_NAME
+FROM DEPARTMENT AS DEP
+WHERE DEP.DEPT_CODE IN (SELECT EMP.DEPT_CODE 
+                        FROM EMP
+                        GROUP BY EMP.DEPT_CODE
+                        HAVING COUNT(*)>10);
+
+/*11*/
+SELECT DEPT_CODE
+FROM EMP
+WHERE BASIC = MAX(BASIC);
+
+/*12*/
+SELECT DEG.DESIG_DESC
+FROM DESIGNATION AS DEG
+WHERE DEG.DESIG_CODE IN (SELECT EMP.DEPT_CODE 
+                         FROM EMP 
+                         WHERE BASIC IN (SELECT MAX(BASIC)
+                         	             FROM EMP));
+
+/*13*/
+SELECT DEPT_CODE,COUNT(*) AS N_MANAGERS
+FROM EMP
+WHERE DESIG_CODE = '1'
+GROUP BY DEPT_CODE
+
+/*14*/
+SELECT DISTINCT BASIC 
+FROM EMP
+WHERE BASIC >= (SELECT DISTINCT BASIC 
+	            FROM EMP);
+
+/*15*/
+SELECT DISTINCT BASIC 
+FROM EMP
+WHERE BASIC <= (SELECT DISTINCT BASIC 
+                FROM EMP);
+
+/*16*/
+/*maximum total salary*/
+SELECT DEPT_NAME AS MAX_TOTAL_SAL_DEPT 
+FROM DEPARTMENT 
+WHERE DEPT_CODE = (SELECT DEPT_CODE 
+	               FROM EMP 
+	               GROUP BY DEPT_CODE 
+	               HAVING SUM(BASIC)>=ALL(SELECT SUM(BASIC) 
+	               	                      FROM EMP 
+	               	                      GROUP BY DEPT_CODE));
+
+/*highest average basic*/
+SELECT DEPT_NAME AS HIGH_AVG_BASIC_DEPT 
+FROM DEPARTMENT 
+WHERE DEPT_CODE = (SELECT DEPT_CODE 
+	               FROM EMP 
+	               GROUP BY DEPT_CODE 
+	               HAVING AVG(BASIC) >= ALL (SELECT AVG(BASIC) 
+	               	                         FROM EMP 
+	               	                         GROUP BY DEPT_CODE));
+
+/*maximum no. of employee*/
+SELECT DEPT_NAME AS MAX_NO_OF_EMP_DEPT 
+FROM DEPARTMENT 
+WHERE DEPT_CODE = (SELECT DEPT_CODE 
+	               FROM EMP 
+	               GROUP BY DEPT_CODE 
+	               HAVING COUNT(EMP_CODE) >= ALL(SELECT COUNT(EMP_CODE) 
+	               	                             FROM EMP 
+	               	                             GROUP BY DEPT_CODE));
+
+/*17*/
+INSERT INTO EMP 
+VALUES('CST16','G','PUR','AST','M','shibpur lane','Howrah','West Bengal','711103',30000,'10-JAN-1997');
+
+INSERT INTO EMP 
+VALUES('CST17','H','PUR','TEC','M','shibpur lane','Howrah','West Bengal','711103',30000,'10-JAN-1997');
+
+INSERT INTO EMP 
+VALUES('CST18','GM','PER','AST','F','shibpur lane','Howrah','West Bengal','711103',50000,'10-JAN-1997');
+
+INSERT INTO EMP 
+VALUES('CST19','HE','FIN','TEC','F','shibpur lane','Howrah','West Bengal','711103',40000,'10-JAN-1997');
+
+/*18*/
+DELETE FROM EMP 
+WHERE DESIG_CODE NOT IN (SELECT 
+	                     DESIG_CODE 
+	                     FROM DESIGNATION);
+
+/*19*/
+SELECT EMP_NAME AS NAME_OF_FEMALE_EMP, DEPT_CODE 
+FROM EMP AS E 
+WHERE SEX like 'F' and BASIC > (SELECT AVG(BASIC) 
+	                            FROM EMP 
+	                            WHERE DEPT_CODE=E.DEPT_CODE);
+
+/*20*/
+SELECT COUNT(EMP_CODE) AS NO_OF_FEMALE_MANAGERS 
+FROM EMP 
+WHERE SEX ='F' AND DESIG_CODE = '1';
